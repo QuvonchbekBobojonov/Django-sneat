@@ -1,0 +1,39 @@
+@import 'include';
+
+// Import bootstrap extended scss
+@import 'root';
+@import 'reboot';
+@import 'type';
+@import 'utilities';
+@import 'tables';
+@import 'buttons';
+@import 'button-group';
+@import 'badge';
+@import 'dropdown';
+@import 'nav';
+@import 'pagination';
+@import 'alert';
+@import 'tooltip';
+@import 'popover';
+@import 'forms';
+@import 'modal';
+@import 'progress';
+@import 'breadcrumb';
+@import 'list-group';
+@import 'navbar';
+@import 'card';
+@import 'accordion';
+@import 'close';
+@import 'toasts';
+@import 'carousel';
+@import 'spinners';
+@import 'offcanvas';
+
+// Common Utilities
+@import '../node_modules/bootstrap/scss/utilities/api';
+
+// LTR Utilities
+@include ltr-only {
+  @import 'utilities-ltr';
+  @import '../node_modules/bootstrap/scss/utilities/api';
+}
