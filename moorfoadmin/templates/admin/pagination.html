@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load moorfoadmin %}
+{% load i18n %}
+
+<div class="d-flex align-items-center justify-content-between">
+{{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name|title }}{% else %}{{ cl.opts.verbose_name_plural|title }}{% endif %}
+{% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% translate 'Save' %}">{% endif %}
+<ul class="pagination">
+    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+        <a class="page-link" aria-hidden="true">‹</a>
+    </li>
+    {% if pagination_required %}
+        {% for i in page_range %}
+            {% paginator_number cl i %}
+        {% endfor %}
+    {% endif %}
+    <li class="page-item">
+        <a class="page-link" rel="next" aria-label="Next »">›</a>
+    </li>
+    <li class="page-item">
+        {% if show_all_url %}<a href="{{ show_all_url }}" class="showall page-link">{% translate 'Show all' %}</a>{% endif %}
+    </li>
+</ul>
+</div>

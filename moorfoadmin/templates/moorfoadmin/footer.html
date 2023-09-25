@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load moorfoadmin i18n %}
+{% get_version as version %}
+{% get_copyright as copyright %}
+
+<footer class="footer bg-light">
+    <div class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+        <div>
+            <b>Copyright © <script>document.write(new Date().getFullYear());</script> {{ copyright }}</b>. {% translate 'All rights reserved.' %}
+        </div>
+        <div>
+            <b>MoorfoAdmin version {{ version }}</b>
+        </div>
+    </div>
+</footer>
