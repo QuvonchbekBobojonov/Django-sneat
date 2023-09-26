@@ -1,23 +1,31 @@
 {% load moorfoadmin %}
 {% load i18n %}
 
+{% if pagination_required %}
 <div class="d-flex align-items-center justify-content-between">
-{{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name|title }}{% else %}{{ cl.opts.verbose_name_plural|title }}{% endif %}
-{% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% translate 'Save' %}">{% endif %}
-<ul class="pagination">
-    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-        <a class="page-link" aria-hidden="true">‹</a>
-    </li>
-    {% if pagination_required %}
-        {% for i in page_range %}
-            {% paginator_number cl i %}
-        {% endfor %}
-    {% endif %}
-    <li class="page-item">
-        <a class="page-link" rel="next" aria-label="Next »">›</a>
-    </li>
-    <li class="page-item">
-        {% if show_all_url %}<a href="{{ show_all_url }}" class="showall page-link">{% translate 'Show all' %}</a>{% endif %}
-    </li>
-</ul>
+    {{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name|title }}{% else %}{{ cl.opts.verbose_name_plural|title }}{% endif %}
+    {% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% translate 'Save' %}">{% endif %}
+    <ul class="pagination">
+        <li class="page-item{% if cl.page_num == 1 %} disabled{% endif %}" aria-disabled="true" aria-label="« Previous">
+            {% if cl.page_num != 1 %}
+                <a class="page-link" href="?p=1" aria-label="First Page">‹‹</a>
+            {% else %}
+                <span class="page-link" aria-hidden="true">‹‹</span>
+            {% endif %}
+        </li>
+            {% for i in page_range %}
+                {% paginator_number cl i %}
+            {% endfor %}
+        <li class="page-item{% if cl.paginator.page_num == cl.paginator.num_pages %} disabled{% endif %}">
+            {% if cl.page_num != cl.paginator.num_pages %}
+                <a class="page-link" href="?p={{ cl.paginator.num_pages }}" aria-label="Last Page">››</a>
+            {% else %}
+                <span class="page-link disabled" aria-hidden="true">››</span>
+            {% endif %}
+        </li>
+        <li class="page-item">
+            {% if show_all_url %}<a href="{{ show_all_url }}" class="showall page-link">{% translate 'Show all' %}</a>{% endif %}
+        </li>
+    </ul>
 </div>
+{% endif %}
