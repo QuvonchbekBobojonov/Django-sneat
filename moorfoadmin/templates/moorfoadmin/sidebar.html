@@ -1,4 +1,4 @@
-
+{% url 'admin:index' as index %}
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{% url 'admin:index' %}" class="app-brand-link">
@@ -57,7 +57,7 @@
         <div class="menu-inner-shadow"></div>
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
-          <li class="menu-item {% if request.resolver_match.url_name == 'admin:index' %}active{% endif %}">
+          <li class="menu-item {% if request.get_full_path == index %}active{% endif %}">
             <a href="{% url 'admin:index' %}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
@@ -66,7 +66,7 @@
           {% for app in available_apps %}
               <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ app.name | truncatechars:16 }}</span></li>
               {% for model in app.models %}
-                  <li class="menu-item {% if app.name == app.active_app_name %}active{% endif %}">
+                  <li class="menu-item {% if model.admin_url == request.get_full_path|slice:":model.admin_url|length" %}active{% endif %}">
                       <a href="{{ model.admin_url }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-layout"></i>
                         <div data-i18n="Layouts">{{ model.name }}</div>
